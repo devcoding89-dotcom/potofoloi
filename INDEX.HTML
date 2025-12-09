@@ -1,889 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>CYBER DEV — Web Developer</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap');
-    
-    *{margin:0;padding:0;box-sizing:border-box}
-    
-    :root{
-      --cyan:#00f5ff;
-      --blue:#0080ff;
-      --purple:#a855f7;
-      --pink:#ec4899;
-      --dark:#0a0a1a;
-    }
-    
-    body{
-      font-family:'Poppins',sans-serif;
-      background:var(--dark);
-      color:#fff;
-      overflow-x:hidden;
-      font-size:16px;
-    }
-    
-    /* Animated Background - Optimized for mobile */
-    body::before{
-      content:'';
-      position:fixed;
-      width:100%;
-      height:100%;
-      background:
-        radial-gradient(circle at 20% 30%,rgba(0,245,255,0.12),transparent 50%),
-        radial-gradient(circle at 80% 70%,rgba(168,85,247,0.12),transparent 50%);
-      animation:bgMove 20s ease infinite;
-      z-index:-1;
-    }
-    
-    @keyframes bgMove{
-      0%,100%{transform:scale(1)}
-      50%{transform:scale(1.05)}
-    }
-    
-    /* Navigation - Mobile First */
-    nav{
-      position:fixed;
-      width:100%;
-      background:rgba(10,10,26,0.95);
-      backdrop-filter:blur(15px);
-      border-bottom:1px solid rgba(0,245,255,0.2);
-      z-index:100;
-      padding:1rem 0;
-      box-shadow:0 2px 20px rgba(0,0,0,0.3);
-    }
-    
-    .nav-content{
-      padding:0 1.25rem;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-    }
-    
-    .logo{
-      font-size:1.5rem;
-      font-weight:900;
-      background:linear-gradient(135deg,var(--cyan),var(--purple));
-      background-size:200% 200%;
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      animation:gradientShift 3s ease infinite;
-      letter-spacing:1px;
-    }
-    
-    @keyframes gradientShift{
-      0%,100%{background-position:0% 50%}
-      50%{background-position:100% 50%}
-    }
-    
-    .burger{
-      display:flex;
-      flex-direction:column;
-      gap:5px;
-      cursor:pointer;
-      z-index:101;
-    }
-    
-    .burger span{
-      width:28px;
-      height:3px;
-      background:var(--cyan);
-      border-radius:3px;
-      transition:all 0.3s;
-    }
-    
-    .burger.active span:nth-child(1){transform:rotate(45deg) translate(7px,7px)}
-    .burger.active span:nth-child(2){opacity:0}
-    .burger.active span:nth-child(3){transform:rotate(-45deg) translate(7px,-7px)}
-    
-    .nav-links{
-      position:fixed;
-      right:-100%;
-      top:0;
-      height:100vh;
-      width:75%;
-      max-width:300px;
-      background:rgba(10,10,26,0.98);
-      backdrop-filter:blur(30px);
-      display:flex;
-      flex-direction:column;
-      padding:5rem 1.5rem 2rem;
-      gap:0.5rem;
-      border-left:1px solid rgba(0,245,255,0.3);
-      transition:right 0.4s ease;
-      box-shadow:-10px 0 50px rgba(0,0,0,0.7);
-    }
-    
-    .nav-links.active{right:0}
-    
-    .nav-links a{
-      color:#fff;
-      text-decoration:none;
-      font-weight:600;
-      font-size:1rem;
-      padding:1rem 1.25rem;
-      border-radius:10px;
-      transition:all 0.3s;
-      position:relative;
-    }
-    
-    .nav-links a:active{
-      background:rgba(0,245,255,0.15);
-      transform:scale(0.98);
-    }
-    
-    .contact-btn{
-      background:linear-gradient(135deg,var(--cyan),var(--purple))!important;
-      color:#000!important;
-      font-weight:700!important;
-      margin-top:1rem;
-      text-align:center;
-      box-shadow:0 5px 20px rgba(0,245,255,0.4)!important;
-    }
-    
-    /* Hero Section - Mobile Optimized */
-    .hero{
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding:5rem 1.25rem 3rem;
-      position:relative;
-    }
-    
-    .hero::before{
-      content:'';
-      position:absolute;
-      width:300px;
-      height:300px;
-      background:radial-gradient(circle,rgba(0,245,255,0.25),transparent 70%);
-      filter:blur(80px);
-      animation:pulse 4s ease-in-out infinite;
-    }
-    
-    @keyframes pulse{
-      0%,100%{transform:scale(1);opacity:0.4}
-      50%{transform:scale(1.2);opacity:0.7}
-    }
-    
-    .hero-content{position:relative;z-index:1}
-    
-    .hero h1{
-      font-size:2.5rem;
-      font-weight:900;
-      margin-bottom:1rem;
-      background:linear-gradient(135deg,#fff,var(--cyan),var(--purple));
-      background-size:200% 200%;
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      line-height:1.2;
-      animation:heroGradient 3s ease infinite;
-    }
-    
-    @keyframes heroGradient{
-      0%,100%{background-position:0% 50%}
-      50%{background-position:100% 50%}
-    }
-    
-    .hero p{
-      font-size:1.1rem;
-      margin-bottom:2rem;
-      opacity:0.9;
-      line-height:1.5;
-    }
-    
-    .hero-btns{
-      display:flex;
-      flex-direction:column;
-      gap:1rem;
-      width:100%;
-    }
-    
-    .btn{
-      padding:1rem 2rem;
-      border-radius:50px;
-      font-weight:700;
-      font-size:1rem;
-      border:none;
-      cursor:pointer;
-      transition:all 0.3s;
-      text-decoration:none;
-      display:inline-block;
-      width:100%;
-      text-align:center;
-    }
-    
-    .btn-primary{
-      background:linear-gradient(135deg,var(--cyan),var(--purple));
-      color:#000;
-      box-shadow:0 8px 25px rgba(0,245,255,0.4);
-    }
-    
-    .btn-primary:active{
-      transform:scale(0.98);
-      box-shadow:0 5px 15px rgba(0,245,255,0.3);
-    }
-    
-    .btn-secondary{
-      background:transparent;
-      border:2px solid var(--cyan);
-      color:#fff;
-    }
-    
-    .btn-secondary:active{
-      background:rgba(0,245,255,0.1);
-      transform:scale(0.98);
-    }
-    
-    /* Sections - Mobile Optimized */
-    section{
-      padding:3rem 1.25rem;
-    }
-    
-    h2{
-      font-size:2rem;
-      text-align:center;
-      margin-bottom:2rem;
-      background:linear-gradient(135deg,#fff,var(--cyan),var(--purple));
-      background-size:200% 200%;
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      font-weight:900;
-      animation:headingShine 3s ease infinite;
-    }
-    
-    @keyframes headingShine{
-      0%,100%{background-position:0% 50%}
-      50%{background-position:100% 50%}
-    }
-    
-    /* Cards - Single Column on Mobile */
-    .grid{
-      display:flex;
-      flex-direction:column;
-      gap:1.5rem;
-    }
-    
-    .card{
-      background:rgba(20,20,40,0.6);
-      backdrop-filter:blur(10px);
-      padding:2rem;
-      border-radius:15px;
-      border:1px solid rgba(0,245,255,0.2);
-      transition:all 0.3s;
-      position:relative;
-    }
-    
-    .card:active{
-      transform:scale(0.98);
-      border-color:var(--cyan);
-      box-shadow:0 10px 30px rgba(0,245,255,0.3);
-    }
-    
-    .card-icon{
-      font-size:2.5rem;
-      margin-bottom:1rem;
-      display:block;
-    }
-    
-    .card h3{
-      font-size:1.3rem;
-      margin-bottom:0.75rem;
-      color:var(--cyan);
-    }
-    
-    .card p{
-      opacity:0.9;
-      line-height:1.6;
-      font-size:0.95rem;
-    }
-    
-    .project-link{
-      display:inline-block;
-      margin-top:1rem;
-      color:var(--cyan);
-      font-weight:600;
-      text-decoration:none;
-    }
-    
-    /* About */
-    .about-box{
-      background:rgba(20,20,40,0.6);
-      backdrop-filter:blur(10px);
-      padding:2rem;
-      border-radius:15px;
-      border:1px solid rgba(0,245,255,0.2);
-      text-align:center;
-    }
-    
-    .about-box p{
-      font-size:1rem;
-      line-height:1.7;
-      margin-bottom:1.25rem;
-      opacity:0.9;
-    }
-    
-    /* Contact Form - Mobile Optimized */
-    .contact-box{
-      background:rgba(20,20,40,0.6);
-      backdrop-filter:blur(10px);
-      padding:2rem 1.5rem;
-      border-radius:15px;
-      border:1px solid rgba(0,245,255,0.2);
-    }
-    
-    .contact-box h3{
-      text-align:center;
-      font-size:1.5rem;
-      margin-bottom:1rem;
-      color:var(--cyan);
-    }
-    
-    .contact-info{
-      text-align:center;
-      margin-bottom:1.5rem;
-      padding:1rem;
-      background:rgba(0,245,255,0.05);
-      border-radius:10px;
-      font-size:0.9rem;
-      line-height:1.8;
-    }
-    
-    .form-group{
-      display:flex;
-      flex-direction:column;
-      gap:0.5rem;
-      margin-bottom:1.25rem;
-    }
-    
-    .form-group label{
-      font-weight:600;
-      color:var(--cyan);
-      font-size:0.95rem;
-    }
-    
-    .form-group input,
-    .form-group textarea{
-      padding:0.9rem;
-      border-radius:10px;
-      border:1px solid rgba(0,245,255,0.3);
-      background:rgba(0,245,255,0.05);
-      color:#fff;
-      font-family:inherit;
-      font-size:1rem;
-      outline:none;
-      transition:all 0.3s;
-    }
-    
-    .form-group input:focus,
-    .form-group textarea:focus{
-      border-color:var(--cyan);
-      box-shadow:0 0 15px rgba(0,245,255,0.2);
-    }
-    
-    textarea{
-      resize:vertical;
-      min-height:120px;
-    }
-    
-    .form-btns{
-      display:flex;
-      flex-direction:column;
-      gap:1rem;
-      margin-top:1.5rem;
-    }
-    
-    .whatsapp-btn{
-      background:linear-gradient(135deg,#25D366,#128C7E);
-      color:#fff;
-    }
-    
-    /* CV Modal - Mobile Optimized */
-    .cv-modal{
-      display:none;
-      position:fixed;
-      top:0;
-      left:0;
-      right:0;
-      bottom:0;
-      background:rgba(0,0,0,0.95);
-      z-index:200;
-      align-items:flex-start;
-      justify-content:center;
-      padding:0;
-      animation:fadeIn 0.3s;
-      overflow-y:auto;
-    }
-    
-    .cv-modal.active{display:flex}
-    
-    @keyframes fadeIn{
-      from{opacity:0}
-      to{opacity:1}
-    }
-    
-    .cv-content{
-      background:linear-gradient(135deg,rgba(20,20,40,0.98),rgba(30,30,60,0.98));
-      border:1px solid rgba(0,245,255,0.3);
-      border-radius:0;
-      padding:4rem 1.5rem 2rem;
-      width:100%;
-      min-height:100vh;
-      animation:slideUp 0.4s;
-      position:relative;
-    }
-    
-    @keyframes slideUp{
-      from{transform:translateY(30px);opacity:0}
-      to{transform:translateY(0);opacity:1}
-    }
-    
-    .cv-close{
-      position:fixed;
-      top:1rem;
-      right:1rem;
-      background:rgba(0,245,255,0.2);
-      border:none;
-      color:#fff;
-      font-size:2rem;
-      cursor:pointer;
-      width:45px;
-      height:45px;
-      border-radius:50%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      transition:all 0.3s;
-      font-weight:bold;
-      z-index:201;
-    }
-    
-    .cv-close:active{
-      background:rgba(0,245,255,0.4);
-      transform:scale(0.95);
-    }
-    
-    .cv-header{
-      text-align:center;
-      margin-bottom:2rem;
-      border-bottom:2px solid rgba(0,245,255,0.3);
-      padding-bottom:1.5rem;
-    }
-    
-    .cv-header h1{
-      font-size:2rem;
-      background:linear-gradient(135deg,var(--cyan),var(--purple));
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      margin-bottom:0.75rem;
-    }
-    
-    .cv-header p{
-      color:rgba(255,255,255,0.8);
-      font-size:0.85rem;
-      margin:0.3rem 0;
-      line-height:1.6;
-    }
-    
-    .cv-section{
-      margin-bottom:2rem;
-    }
-    
-    .cv-section h2{
-      font-size:1.3rem;
-      background:linear-gradient(135deg,var(--cyan),var(--blue));
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      border-bottom:2px solid rgba(0,245,255,0.2);
-      padding-bottom:0.5rem;
-      margin-bottom:1rem;
-      text-align:left;
-    }
-    
-    .cv-item{
-      margin-bottom:1.2rem;
-    }
-    
-    .cv-item h3{
-      color:#fff;
-      font-size:1rem;
-      margin-bottom:0.3rem;
-    }
-    
-    .cv-item .title{
-      color:var(--purple);
-      font-weight:600;
-      font-size:0.95rem;
-    }
-    
-    .cv-item .date{
-      color:rgba(0,245,255,0.6);
-      font-size:0.85rem;
-      font-style:italic;
-      margin-bottom:0.5rem;
-    }
-    
-    .cv-item p{
-      color:#ccc;
-      margin:0.3rem 0;
-      line-height:1.5;
-      font-size:0.9rem;
-    }
-    
-    .cv-skills{
-      display:flex;
-      flex-wrap:wrap;
-      gap:0.6rem;
-      margin-top:0.8rem;
-    }
-    
-    .cv-skill-tag{
-      background:rgba(0,245,255,0.15);
-      color:var(--cyan);
-      padding:0.4rem 0.9rem;
-      border-radius:20px;
-      font-size:0.85rem;
-      border:1px solid rgba(0,245,255,0.3);
-    }
-    
-    /* Footer */
-    footer{
-      padding:2.5rem 1.25rem;
-      text-align:center;
-      border-top:1px solid rgba(0,245,255,0.2);
-      font-size:0.9rem;
-    }
-    
-    .footer-links{
-      display:flex;
-      flex-direction:column;
-      gap:1rem;
-      margin-top:1.5rem;
-    }
-    
-    .footer-links a{
-      color:var(--cyan);
-      text-decoration:none;
-      font-weight:600;
-      padding:0.75rem;
-      background:rgba(0,245,255,0.05);
-      border-radius:10px;
-      transition:all 0.3s;
-    }
-    
-    .footer-links a:active{
-      background:rgba(0,245,255,0.15);
-      transform:scale(0.98);
-    }
-    
-    /* Scrollbar */
-    ::-webkit-scrollbar{width:6px}
-    ::-webkit-scrollbar-track{background:rgba(0,245,255,0.05)}
-    ::-webkit-scrollbar-thumb{background:rgba(0,245,255,0.3);border-radius:3px}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>
+  CYBER DEV — Web Developer
+</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#6366f1;--secondary:#8b5cf6;--accent:#ec4899;--cyan:#06b6d4;--emerald:#10b981}
+body{font-family:'Poppins',sans-serif;background:#020617;color:#fff;overflow-x:hidden}
+body::before{content:'';position:fixed;width:100%;height:100%;background:radial-gradient(ellipse at 10% 20%,rgba(99,102,241,0.15),transparent 50%),radial-gradient(ellipse at 90% 80%,rgba(139,92,246,0.15),transparent 50%);animation:bgFlow 25s ease infinite;z-index:-1}
+@keyframes bgFlow{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+body::after{content:'';position:fixed;width:100%;height:100%;background-image:radial-gradient(2px 2px at 20% 30%,rgba(99,102,241,0.4),transparent),radial-gradient(2px 2px at 60% 70%,rgba(139,92,246,0.4),transparent);background-size:200px 200px,300px 300px;animation:particleFloat 60s linear infinite;z-index:-1;opacity:0.6}
+@keyframes particleFloat{100%{transform:translateY(-1000px)}}
+nav{position:fixed;width:100%;background:rgba(15,23,42,0.8);backdrop-filter:blur(20px);border-bottom:1px solid rgba(99,102,241,0.2);z-index:100;padding:1rem 0;box-shadow:0 4px 30px rgba(0,0,0,0.5)}
+.nav-content{padding:0 1.25rem;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:1.5rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#8b5cf6,#ec4899);background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientFlow 4s ease infinite;letter-spacing:3px;position:relative;font-family:'Courier New',monospace;display:flex;align-items:center;gap:10px}
+.logo-icon{width:40px;height:40px;position:relative;display:flex;align-items:center;justify-content:center}
+.logo-circle{position:absolute;width:100%;height:100%;border:3px solid transparent;border-top-color:#6366f1;border-right-color:#8b5cf6;border-radius:50%;animation:spin 2s linear infinite}
+.logo-circle:nth-child(2){width:70%;height:70%;border-top-color:#ec4899;border-right-color:#06b6d4;animation:spin 1.5s linear infinite reverse}
+.logo-circle:nth-child(3){width:40%;height:40%;border-top-color:#10b981;border-right-color:#6366f1;animation:spin 1s linear infinite}
+.logo-center{position:absolute;width:12px;height:12px;background:linear-gradient(135deg,#6366f1,#ec4899);border-radius:50%;box-shadow:0 0 15px rgba(99,102,241,0.8);animation:pulse 2s ease infinite}
+@keyframes spin{100%{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.2);opacity:0.7}}
+.logo::before{content:'<';color:#6366f1;font-weight:900;animation:blink 1.5s infinite}
+.logo::after{content:'/>';color:#ec4899;font-weight:900;animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+@keyframes gradientFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.burger{display:flex;flex-direction:column;gap:5px;cursor:pointer;z-index:101;padding:10px}
+.burger span{width:28px;height:3px;background:linear-gradient(90deg,#6366f1,#8b5cf6);border-radius:3px;transition:all 0.4s;box-shadow:0 0 10px rgba(99,102,241,0.5)}
+.burger.active span:nth-child(1){transform:rotate(45deg) translate(9px,9px)}
+.burger.active span:nth-child(2){opacity:0}
+.burger.active span:nth-child(3){transform:rotate(-45deg) translate(9px,-9px)}
+.nav-links{position:fixed;right:-100%;top:0;height:100vh;width:75%;max-width:300px;background:linear-gradient(135deg,rgba(15,23,42,0.98),rgba(30,41,59,0.98));backdrop-filter:blur(30px);display:flex;flex-direction:column;padding:5rem 1.5rem 2rem;gap:0.5rem;border-left:1px solid rgba(99,102,241,0.4);transition:right 0.5s;box-shadow:-15px 0 60px rgba(0,0,0,0.8);overflow-y:auto}
+.nav-links.active{right:0}
+.nav-links a{color:#fff;text-decoration:none;font-weight:600;padding:1rem 1.25rem;border-radius:12px;transition:all 0.3s;position:relative;overflow:hidden}
+.nav-links a:active{background:rgba(99,102,241,0.2);transform:scale(0.95)}
+.contact-btn{background:linear-gradient(135deg,#6366f1,#8b5cf6,#ec4899)!important;color:#fff!important;margin-top:1rem;text-align:center;box-shadow:0 8px 25px rgba(99,102,241,0.5)!important;animation:btnPulse 2s ease infinite}
+@keyframes btnPulse{0%,100%{box-shadow:0 8px 25px rgba(99,102,241,0.5)}50%{box-shadow:0 8px 35px rgba(139,92,246,0.7)}}
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:5rem 1.25rem 3rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(99,102,241,0.3),transparent 70%);filter:blur(100px);animation:heroGlow 5s ease-in-out infinite;top:50%;left:50%;transform:translate(-50%,-50%)}
+@keyframes heroGlow{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:0.5}50%{transform:translate(-50%,-50%) scale(1.3);opacity:0.8}}
+.hero-content{position:relative;z-index:1;animation:fadeInUp 1s ease}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+.hero h1{font-size:3rem;font-weight:900;margin-bottom:1rem;background:linear-gradient(135deg,#fff,#6366f1,#8b5cf6,#ec4899);background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2;animation:heroTextGradient 5s ease infinite;letter-spacing:3px;display:flex;flex-direction:column;align-items:center;gap:1.5rem}
+.hero-logo-icon{width:80px;height:80px;position:relative;display:flex;align-items:center;justify-content:center;margin-bottom:0.5rem}
+.hero-logo-circle{position:absolute;width:100%;height:100%;border:4px solid transparent;border-top-color:#6366f1;border-right-color:#8b5cf6;border-radius:50%;animation:spin 2s linear infinite}
+.hero-logo-circle:nth-child(2){width:70%;height:70%;border-top-color:#ec4899;border-right-color:#06b6d4;animation:spin 1.5s linear infinite reverse}
+.hero-logo-circle:nth-child(3){width:40%;height:40%;border-top-color:#10b981;border-right-color:#6366f1;animation:spin 1s linear infinite}
+.hero-logo-center{position:absolute;width:20px;height:20px;background:linear-gradient(135deg,#6366f1,#ec4899);border-radius:50%;box-shadow:0 0 20px rgba(99,102,241,0.8);animation:pulse 2s ease infinite}
+@keyframes heroTextGradient{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.hero p{font-size:1.2rem;margin-bottom:2.5rem;color:#e2e8f0}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:2.5rem;width:100%}
+.stat-item{background:rgba(30,41,59,0.6);backdrop-filter:blur(10px);padding:1.5rem 1rem;border-radius:15px;border:1px solid rgba(99,102,241,0.3);text-align:center;transition:all 0.3s}
+.stat-item:hover{transform:translateY(-5px);border-color:rgba(139,92,246,0.6);box-shadow:0 10px 30px rgba(99,102,241,0.3)}
+.stat-number{font-size:2rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:0.5rem}
+.stat-label{font-size:0.85rem;color:#cbd5e1;font-weight:600}
+.hero-btns{display:flex;flex-direction:column;gap:1rem;width:100%}
+.btn{padding:1.1rem 2.5rem;border-radius:50px;font-weight:700;border:none;cursor:pointer;transition:all 0.4s;text-decoration:none;display:inline-block;width:100%;text-align:center;position:relative;overflow:hidden}
+.btn::before{content:'';position:absolute;top:50%;left:50%;width:0;height:0;border-radius:50%;background:rgba(255,255,255,0.3);transform:translate(-50%,-50%);transition:width 0.6s,height 0.6s}
+.btn:active::before{width:400px;height:400px}
+.btn-primary{background:linear-gradient(135deg,#6366f1,#8b5cf6,#ec4899);color:#fff;box-shadow:0 10px 30px rgba(99,102,241,0.5)}
+.btn-primary:active{transform:scale(0.95)}
+.btn-secondary{background:rgba(99,102,241,0.1);border:2px solid #6366f1;color:#fff;box-shadow:0 0 20px rgba(99,102,241,0.3)}
+.btn-secondary:active{background:rgba(99,102,241,0.2);transform:scale(0.95)}
+section{padding:4rem 1.25rem}
+h2{font-size:2.5rem;text-align:center;margin-bottom:3rem;background:linear-gradient(135deg,#fff,#6366f1,#8b5cf6);background-size:300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900;animation:headingGlow 4s ease infinite;letter-spacing:2px;position:relative;width:100%}
+@keyframes headingGlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+h2::after{content:'';position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:80px;height:4px;background:linear-gradient(90deg,#6366f1,#8b5cf6,#ec4899);border-radius:2px;box-shadow:0 0 20px rgba(99,102,241,0.8)}
+.grid{display:flex;flex-direction:column;gap:1.5rem}
+.card{background:linear-gradient(135deg,rgba(30,41,59,0.7),rgba(51,65,85,0.5));backdrop-filter:blur(20px);padding:2.5rem;border-radius:20px;border:1px solid rgba(99,102,241,0.3);transition:all 0.4s;position:relative;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,0.3)}
+.card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent,rgba(99,102,241,0.1),transparent 60deg);animation:cardRotate 8s linear infinite}
+@keyframes cardRotate{100%{transform:rotate(360deg)}}
+.card::after{content:'';position:absolute;inset:2px;background:linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,41,59,0.8));border-radius:19px;z-index:0}
+.card>*{position:relative;z-index:1}
+.card:hover{transform:translateY(-10px);border-color:rgba(139,92,246,0.6);box-shadow:0 20px 60px rgba(99,102,241,0.4)}
+.card:active{transform:scale(0.98)}
+.card-icon{font-size:3rem;margin-bottom:1.5rem;display:block;animation:iconFloat 4s ease-in-out infinite;filter:drop-shadow(0 0 20px rgba(99,102,241,0.8))}
+@keyframes iconFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+.card h3{font-size:1.5rem;margin-bottom:1rem;background:linear-gradient(135deg,#6366f1,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700}
+.card h4{font-size:1.1rem;color:#6366f1;font-weight:700}
+.card p{line-height:1.8;color:#cbd5e1}
+.price-tag{margin-top:1.5rem;padding:0.75rem 1.5rem;background:linear-gradient(135deg,rgba(99,102,241,0.2),rgba(139,92,246,0.2));border:1px solid rgba(99,102,241,0.4);border-radius:25px;display:inline-block;color:#fff;font-weight:700;font-size:0.95rem}
+.project-link{display:inline-block;margin-top:1.5rem;color:#6366f1;font-weight:700;text-decoration:none;padding:0.5rem 1rem;border-radius:8px;background:rgba(99,102,241,0.1);transition:all 0.3s}
+.project-link:hover{background:rgba(99,102,241,0.2);transform:translateX(5px)}
+.about-box,.contact-box{background:linear-gradient(135deg,rgba(30,41,59,0.7),rgba(51,65,85,0.5));backdrop-filter:blur(20px);padding:3rem 2rem;border-radius:20px;border:1px solid rgba(99,102,241,0.3);box-shadow:0 10px 40px rgba(0,0,0,0.3);position:relative;overflow:hidden}
+.about-box::before{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:conic-gradient(from 180deg,transparent,rgba(139,92,246,0.1),transparent 60deg);animation:cardRotate 10s linear infinite reverse}
+.contact-box::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 90deg,transparent,rgba(236,72,153,0.1),transparent 60deg);animation:cardRotate 12s linear infinite}
+.about-box>,.contact-box>{position:relative;z-index:1}
+.about-box{text-align:center}
+.about-box p{font-size:1.1rem;line-height:1.9;margin-bottom:1.5rem;color:#e2e8f0}
+.benefits-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:2rem}
+.benefit-item{background:rgba(15,23,42,0.6);padding:1.5rem;border-radius:12px;border:1px solid rgba(99,102,241,0.2);text-align:center;transition:all 0.3s}
+.benefit-item:hover{transform:translateY(-5px);border-color:rgba(139,92,246,0.5);box-shadow:0 10px 25px rgba(99,102,241,0.3)}
+.benefit-icon{font-size:2.5rem;display:block;margin-bottom:1rem;filter:drop-shadow(0 0 10px rgba(99,102,241,0.5))}
+.benefit-item h4{font-size:1.1rem;color:#fff;margin-bottom:0.5rem;font-weight:700}
+.benefit-item p{font-size:0.9rem;color:#94a3b8;margin:0}
+.contact-box h3{text-align:center;font-size:1.8rem;margin-bottom:1.5rem;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:800}
+.contact-info{text-align:center;margin-bottom:2rem;padding:1.5rem;background:rgba(99,102,241,0.1);border-radius:15px;line-height:2;border:1px solid rgba(99,102,241,0.2)}
+.contact-info strong{color:#6366f1}
+.form-group{display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.5rem}
+.form-group label{font-weight:600;background:linear-gradient(135deg,#6366f1,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.form-group input,.form-group textarea{padding:1rem 1.2rem;border-radius:12px;border:1px solid rgba(99,102,241,0.3);background:rgba(30,41,59,0.5);color:#fff;font-family:inherit;outline:none;transition:all 0.3s}
+.form-group input:focus,.form-group textarea:focus{border-color:#6366f1;box-shadow:0 0 20px rgba(99,102,241,0.3);background:rgba(30,41,59,0.7);transform:scale(1.02)}
+textarea{resize:vertical;min-height:140px}
+.form-btns{display:flex;flex-direction:column;gap:1rem;margin-top:2rem}
+.whatsapp-btn{background:linear-gradient(135deg,#25D366,#128C7E)!important;color:#fff!important;box-shadow:0 10px 30px rgba(37,211,102,0.4)!important}
+.cv-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.97);z-index:200;align-items:flex-start;justify-content:center;animation:modalFadeIn 0.4s;overflow-y:auto;backdrop-filter:blur(10px)}
+.cv-modal.active{display:flex}
+@keyframes modalFadeIn{from{opacity:0}to{opacity:1}}
+.cv-content{background:linear-gradient(135deg,rgba(15,23,42,0.98),rgba(30,41,59,0.98));border:1px solid rgba(99,102,241,0.4);padding:5rem 2rem 3rem;width:100%;min-height:100vh;animation:cvSlideUp 0.5s;backdrop-filter:blur(30px)}
+@keyframes cvSlideUp{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
+.cv-close{position:fixed;top:1.5rem;right:1.5rem;background:linear-gradient(135deg,#6366f1,#8b5cf6);border:none;color:#fff;font-size:2rem;cursor:pointer;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all 0.3s;z-index:201;box-shadow:0 5px 20px rgba(99,102,241,0.5)}
+.cv-close:active{background:linear-gradient(135deg,#8b5cf6,#ec4899);transform:scale(0.9) rotate(90deg)}
+.cv-header{text-align:center;margin-bottom:3rem;border-bottom:2px solid rgba(99,102,241,0.4);padding-bottom:2rem}
+.cv-header h1{font-size:2.5rem;background:linear-gradient(135deg,#6366f1,#8b5cf6,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:1rem;font-weight:900;letter-spacing:2px}
+.cv-header p{color:rgba(255,255,255,0.9);margin:0.5rem 0;line-height:1.8}
+.cv-section{margin-bottom:2.5rem}
+.cv-section h2{font-size:1.5rem;background:linear-gradient(135deg,#6366f1,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;border-bottom:2px solid rgba(99,102,241,0.3);padding-bottom:0.75rem;margin-bottom:1.5rem;text-align:left;font-weight:800}
+.cv-section h2::after{display:none}
+.cv-item{margin-bottom:1.5rem;padding:1.5rem;background:rgba(30,41,59,0.5);border-radius:12px;border:1px solid rgba(99,102,241,0.2)}
+.cv-item h3{color:#fff;font-size:1.1rem;margin-bottom:0.5rem;font-weight:700}
+.cv-item .title{color:#8b5cf6;font-weight:600}
+.cv-item .date{color:rgba(99,102,241,0.8);font-size:0.9rem;font-style:italic;margin-bottom:0.75rem}
+.cv-item p{color:#cbd5e1;margin:0.5rem 0;line-height:1.7}
+.cv-skills{display:flex;flex-wrap:wrap;gap:0.75rem;margin-top:1rem}
+.cv-skill-tag{background:rgba(99,102,241,0.2);color:#fff;padding:0.6rem 1.2rem;border-radius:25px;font-size:0.9rem;border:1px solid rgba(99,102,241,0.4);font-weight:600;transition:all 0.3s;box-shadow:0 4px 15px rgba(99,102,241,0.2)}
+.cv-skill-tag:hover{background:rgba(99,102,241,0.3);transform:translateY(-3px);box-shadow:0 8px 20px rgba(99,102,241,0.4)}
+footer{padding:3rem 1.25rem;text-align:center;border-top:1px solid rgba(99,102,241,0.3);background:linear-gradient(135deg,rgba(15,23,42,0.5),rgba(30,41,59,0.3))}
+footer p{color:#cbd5e1}
+.footer-links{display:flex;flex-direction:column;gap:1rem;margin-top:2rem}
+.footer-links a{background:linear-gradient(135deg,rgba(99,102,241,0.2),rgba(139,92,246,0.2));color:#fff;text-decoration:none;font-weight:600;padding:1rem;border-radius:12px;transition:all 0.3s;border:1px solid rgba(99,102,241,0.3)}
+.footer-links a:hover{background:linear-gradient(135deg,rgba(99,102,241,0.3),rgba(139,92,246,0.3));transform:translateY(-3px);box-shadow:0 10px 30px rgba(99,102,241,0.4)}
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:rgba(15,23,42,0.5)}
+::-webkit-scrollbar-thumb{background:linear-gradient(135deg,#6366f1,#8b5cf6);border-radius:4px}
+</style>
 </head>
 <body>
-  <!-- Navigation -->
-  <nav>
-    <div class="nav-content">
-      <div class="logo">CYBER DEV</div>
-      <div class="burger" id="burger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <div class="nav-links" id="navLinks">
-        <a href="#home">Home</a>
-        <a href="#services">Services</a>
-        <a href="#projects">Projects</a>
-        <a href="#about">About</a>
-        <a href="#" onclick="openCVModal(event)">📄 CV</a>
-        <a href="#contact" class="contact-btn">Contact</a>
-      </div>
-    </div>
-  </nav>
+<nav><div class="nav-content"><div class="logo"><div class="logo-icon"><div class="logo-circle"></div><div class="logo-circle"></div><div class="logo-circle"></div><div class="logo-center"></div></div>CYBER.DEV</div><div class="burger" id="burger"><span></span><span></span><span></span></div><div class="nav-links" id="navLinks"><a href="#home">Home</a><a href="#services">Services</a><a href="#projects">Projects</a><a href="#testimonials">Testimonials</a><a href="#process">Process</a><a href="#about">About</a><a href="#" onclick="openCVModal(event)">📄 CV</a><a href="#contact" class="contact-btn">Contact</a></div></div></nav>
 
-  <!-- Hero -->
-  <section class="hero" id="home">
-    <div class="hero-content">
-      <h1>CYBER DEV</h1>
-      <p>Crafting Beautiful Digital Experiences ✨</p>
-      <div class="hero-btns">
-        <button class="btn btn-primary" onclick="scrollToContact()">🚀 Start Project</button>
-        <button class="btn btn-secondary" onclick="openCVModal(event)">📄 View CV</button>
-      </div>
-    </div>
-  </section>
+<section class="hero" id="home"><div class="hero-content"><h1><div class="hero-logo-icon"><div class="hero-logo-circle"></div><div class="hero-logo-circle"></div><div class="hero-logo-circle"></div><div class="hero-logo-center"></div></div><span>&lt;CYBER.DEV/&gt;</span></h1><p>Premium Web Developer | Transforming Ideas Into Digital Reality</p><div class="stats-grid"><div class="stat-item"><div class="stat-number">50+</div><div class="stat-label">Projects Completed</div></div><div class="stat-item"><div class="stat-number">100%</div><div class="stat-label">Client Satisfaction</div></div><div class="stat-item"><div class="stat-number">24/7</div><div class="stat-label">Support Available</div></div></div><div class="hero-btns"><button class="btn btn-primary" onclick="scrollToContact()">🚀 Start Project</button><button class="btn btn-secondary" onclick="openCVModal(event)">📄 View CV</button></div></div></section>
 
-  <!-- Services -->
-  <section id="services">
-    <h2>Premium Services</h2>
-    <div class="grid">
-      <div class="card">
-        <span class="card-icon">💼</span>
-        <h3>Portfolio Website</h3>
-        <p>Stunning portfolios that showcase your work with elegance and professionalism.</p>
-      </div>
-      <div class="card">
-        <span class="card-icon">🏢</span>
-        <h3>Business Website</h3>
-        <p>Powerful business sites that convert visitors into loyal customers.</p>
-      </div>
-      <div class="card">
-        <span class="card-icon">🛒</span>
-        <h3>E-commerce</h3>
-        <p>Complete online stores with secure payments and seamless checkout.</p>
-      </div>
-      <div class="card">
-        <span class="card-icon">🔍</span>
-        <h3>SEO Optimization</h3>
-        <p>Rank higher on Google and attract massive organic traffic.</p>
-      </div>
-    </div>
-  </section>
+<section id="services"><h2>Premium Services</h2><p style="text-align:center;color:#cbd5e1;margin-bottom:3rem;font-size:1.1rem;max-width:600px;margin-left:auto;margin-right:auto">Comprehensive web solutions tailored to your business needs. From concept to launch, I deliver excellence.</p><div class="grid"><div class="card"><span class="card-icon">💼</span><h3>Portfolio Website</h3><p>Stunning portfolios that showcase your work with elegance and professionalism. Stand out from the competition.</p><div class="price-tag">Starting at $299</div></div><div class="card"><span class="card-icon">🏢</span><h3>Business Website</h3><p>Powerful business sites that convert visitors into loyal customers. Boost your online presence.</p><div class="price-tag">Starting at $499</div></div><div class="card"><span class="card-icon">🛒</span><h3>E-commerce</h3><p>Complete online stores with secure payments and seamless checkout. Start selling today.</p><div class="price-tag">Starting at $799</div></div><div class="card"><span class="card-icon">🔍</span><h3>SEO Optimization</h3><p>Rank higher on Google and attract massive organic traffic. Get found by your customers.</p><div class="price-tag">Starting at $199</div></div><div class="card"><span class="card-icon">⚡</span><h3>Website Redesign</h3><p>Modernize your outdated website with fresh design and improved performance. Stay competitive.</p><div class="price-tag">Starting at $399</div></div><div class="card"><span class="card-icon">🎨</span><h3>Custom Development</h3><p>Unique solutions built from scratch to match your exact requirements. Your vision, realized.</p><div class="price-tag">Custom Quote</div></div></div></section>
 
-  <!-- Projects -->
-  <section id="projects">
-    <h2>Featured Projects</h2>
-    <div class="grid">
-      <a href="https://wonderful-meringue-86a829.netlify.app/" target="_blank" style="text-decoration:none;color:inherit">
-        <div class="card">
-          <span class="card-icon">🚀</span>
-          <h3>Meringue Project</h3>
-          <p>Modern web application with cutting-edge design.</p>
-          <span class="project-link">View Live →</span>
-        </div>
-      </a>
-      <a href="https://color-memory-master-6c1f7.web.app/" target="_blank" style="text-decoration:none;color:inherit">
-        <div class="card">
-          <span class="card-icon">🎮</span>
-          <h3>Color Memory Master</h3>
-          <p>Interactive game with smooth animations.</p>
-          <span class="project-link">View Live →</span>
-        </div>
-      </a>
-      <a href="https://dev-kolade-a50df-cd214.web.app/" target="_blank" style="text-decoration:none;color:inherit">
-        <div class="card">
-          <span class="card-icon">👨‍💻</span>
-          <h3>Dev Kolade Portfolio</h3>
-          <p>Professional developer portfolio.</p>
-          <span class="project-link">View Live →</span>
-        </div>
-      </a>
-      <a href="https://study-snap-89c05.web.app/" target="_blank" style="text-decoration:none;color:inherit">
-        <div class="card">
-          <span class="card-icon">📚</span>
-          <h3>Study Snap</h3>
-          <p>Educational platform for students.</p>
-          <span class="project-link">View Live →</span>
-        </div>
-      </a>
-    </div>
-  </section>
+<section id="projects"><h2>Featured Projects</h2><div class="grid"><a href="https://wonderful-meringue-86a829.netlify.app/" target="_blank" style="text-decoration:none;color:inherit"><div class="card"><span class="card-icon">🚀</span><h3>Meringue Project</h3><p>Modern web application with cutting-edge design.</p><span class="project-link">View Live →</span></div></a><a href="https://color-memory-master-6c1f7.web.app/" target="_blank" style="text-decoration:none;color:inherit"><div class="card"><span class="card-icon">🎮</span><h3>Color Memory Master</h3><p>Interactive game with smooth animations.</p><span class="project-link">View Live →</span></div></a><a href="https://dev-kolade-a50df-cd214.web.app/" target="_blank" style="text-decoration:none;color:inherit"><div class="card"><span class="card-icon">👨‍💻</span><h3>Dev Kolade Portfolio</h3><p>Professional developer portfolio.</p><span class="project-link">View Live →</span></div></a><a href="https://study-snap-89c05.web.app/" target="_blank" style="text-decoration:none;color:inherit"><div class="card"><span class="card-icon">📚</span><h3>Study Snap</h3><p>Educational platform for students.</p><span class="project-link">View Live →</span></div></a></div></section>
 
-  <!-- About -->
-  <section id="about">
-    <h2>About Me</h2>
-    <div class="about-box">
-      <p>I'm a passionate web developer who creates digital experiences that look incredible and perform flawlessly.</p>
-      <p>From portfolios to e-commerce platforms, I build custom solutions that help businesses thrive online.</p>
-    </div>
-  </section>
+<section style="background:rgba(15,23,42,0.5);padding:4rem 1.25rem" id="testimonials"><h2>What Clients Say</h2><p style="text-align:center;color:#cbd5e1;margin-bottom:3rem;font-size:1.1rem;max-width:600px;margin-left:auto;margin-right:auto">Real feedback from satisfied clients who trusted me with their projects</p><div class="grid"><div class="card"><span class="card-icon">⭐⭐⭐⭐⭐</span><p style="font-style:italic;margin-bottom:1rem">"Cyber Dev delivered an outstanding website that exceeded our expectations. Professional, fast, and highly skilled. Our online sales increased by 40% within the first month!"</p><h4 style="color:#6366f1;font-weight:700">— Sarah Johnson, E-commerce Owner</h4></div><div class="card"><span class="card-icon">⭐⭐⭐⭐⭐</span><p style="font-style:italic;margin-bottom:1rem">"Amazing work! The website is beautiful, responsive, and fast. Communication was excellent throughout the project. Highly recommended for anyone serious about their online presence."</p><h4 style="color:#6366f1;font-weight:700">— Michael Chen, Business Consultant</h4></div><div class="card"><span class="card-icon">⭐⭐⭐⭐⭐</span><p style="font-style:italic;margin-bottom:1rem">"Professional developer who understands both design and functionality. My portfolio now stands out and I'm getting more client inquiries than ever before!"</p><h4 style="color:#6366f1;font-weight:700">— Emma Rodriguez, Photographer</h4></div></div></section>
 
-  <!-- Contact -->
-  <section id="contact">
-    <h2>Let's Work Together</h2>
-    <div class="contact-box">
-      <h3>Get In Touch</h3>
-      <div class="contact-info">
-        <p>📧 <strong><a href="mailto:devcoding89@gmail.com" style="color:inherit;text-decoration:none;">devcoding89@gmail.com</a></strong></p>
-      </div>
-      <form id="contactForm" onsubmit="sendEmail(event)">
-        <div class="form-group">
-          <label>Your Name</label>
-          <input type="text" id="name" placeholder="John Doe" required>
-        </div>
-        <div class="form-group">
-          <label>Your Email</label>
-          <input type="email" id="email" placeholder="you@example.com" required>
-        </div>
-        <div class="form-group">
-          <label>Message</label>
-          <textarea id="message" placeholder="Tell me about your project..." required></textarea>
-        </div>
-        <div class="form-btns">
-          <button type="submit" class="btn btn-primary" id="sendBtn">✉ Send Message</button>
-        </div>
-      </form>
-      <div class="social-links">
-        <p style="text-align:center; margin-top:2rem; margin-bottom:1rem; font-weight:600;">Or Connect With Me</p>
-        <div class="social-icons">
-          <a href="https://github.com/engrkhaleedusman-commits" target="_blank" class="social-icon" title="GitHub">🔗</a>
-          <a href="https://www.instagram.com/cyber_ak" target="_blank" class="social-icon" title="Instagram">📷</a>
-          <a href="https://www.tiktok.com/@coding.dev5" target="_blank" class="social-icon" title="TikTok">🎵</a>
-          <a href="https://t.me/cyberak01" target="_blank" class="social-icon" title="Telegram">📱</a>
-        </div>
-      </div>
-    </div>
-  </section>
+<section id="process"><h2>My Process</h2><p style="text-align:center;color:#cbd5e1;margin-bottom:3rem;font-size:1.1rem;max-width:600px;margin-left:auto;margin-right:auto">A proven 5-step process that ensures your project success from start to finish</p><div class="grid"><div class="card"><span class="card-icon" style="font-size:2rem;font-weight:900;color:#6366f1">01</span><h3>Discovery & Planning</h3><p>We discuss your vision, goals, target audience, and requirements. I'll provide expert recommendations and create a detailed project roadmap with timelines and milestones.</p></div><div class="card"><span class="card-icon" style="font-size:2rem;font-weight:900;color:#8b5cf6">02</span><h3>Design & Mockup</h3><p>I create stunning visual designs and interactive prototypes for your approval. You'll see exactly how your website will look before any code is written.</p></div><div class="card"><span class="card-icon" style="font-size:2rem;font-weight:900;color:#ec4899">03</span><h3>Development</h3><p>I build your website using modern technologies, ensuring it's fast, responsive, and optimized for all devices. Regular updates keep you informed of progress.</p></div><div class="card"><span class="card-icon" style="font-size:2rem;font-weight:900;color:#06b6d4">04</span><h3>Testing & Review</h3><p>Comprehensive testing across all browsers and devices. You review the website, request revisions, and I perfect every detail until you're 100% satisfied.</p></div><div class="card"><span class="card-icon" style="font-size:2rem;font-weight:900;color:#10b981">05</span><h3>Launch & Support</h3><p>I handle the complete launch process and provide post-launch support. Your success is my priority, and I'm here to help your business grow online.</p></div></div></section>
 
-  <!-- CV Modal -->
-  <div class="cv-modal" id="cvModal">
-    <div class="cv-content">
-      <button class="cv-close" onclick="closeCVModal()">×</button>
-      
-      <div class="cv-header">
-        <h1>CYBER A.K</h1>
-        <p>📍 USA</p>
-        <p>📧 <a href="mailto:devcoding89@gmail.com" style="color:inherit;text-decoration:none;">devcoding89@gmail.com</a></p>
-        <p>🌐 starlit-maamoul-fbd62c.netlify.app</p>
-      </div>
-      
-      <div class="cv-section">
-        <h2>👤 Professional Summary</h2>
-        <p>Creative and detail-oriented Web Developer skilled in building modern, responsive, and user-friendly websites. Strong foundation in HTML, CSS, JavaScript, and UI design.</p>
-      </div>
-      
-      <div class="cv-section">
-        <h2>🎯 Skills</h2>
-        <div class="cv-skills">
-          <span class="cv-skill-tag">HTML5</span>
-          <span class="cv-skill-tag">CSS3</span>
-          <span class="cv-skill-tag">JavaScript</span>
-          <span class="cv-skill-tag">TailwindCSS</span>
-          <span class="cv-skill-tag">Bootstrap</span>
-          <span class="cv-skill-tag">Git/GitHub</span>
-          <span class="cv-skill-tag">VS Code</span>
-          <span class="cv-skill-tag">Netlify</span>
-          <span class="cv-skill-tag">Mobile-first</span>
-          <span class="cv-skill-tag">Responsive</span>
-          <span class="cv-skill-tag">Problem-solving</span>
-          <span class="cv-skill-tag">Communication</span>
-        </div>
-      </div>
-      
-      <div class="cv-section">
-        <h2>💼 Experience</h2>
-        <div class="cv-item">
-          <h3>Freelance Web Developer</h3>
-          <div class="date">2023 – Present</div>
-          <p>• Built responsive websites for clients</p>
-          <p>• Improved UI/UX and optimized performance</p>
-          <p>• Created reusable components</p>
-        </div>
-      </div>
-      
-      <div class="cv-section">
-        <h2>🚀 Projects</h2>
-        <div class="cv-item">
-          <h3>Personal Portfolio Website</h3>
-          <p class="date">starlit-maamoul-fbd62c.netlify.app</p>
-          <p>• Landing Page UI</p>
-          <p>• E-commerce UI Concept</p>
-          <p>• Dashboard Layout</p>
-        </div>
-      </div>
-      
-      <div class="cv-section">
-        <h2>🎓 Education</h2>
-        <div class="cv-item">
-          <h3>Al-Hikmah University</h3>
-          <p class="date">Current Student</p>
-        </div>
-      </div>
-      
-      <div class="cv-section">
-        <h2>🏆 Certifications & Awards</h2>
-        <p>• Web Development Fundamentals — Coursera / Meta (2024)</p>
-        <p>• Best Student in Technology — Secondary School Award</p>
-      </div>
-      
-      <div class="cv-section">
-        <h2>🌍 Languages</h2>
-        <p>• English</p>
-      </div>
-    </div>
-  </div>
+<section style="background:rgba(15,23,42,0.5);padding:4rem 1.25rem"><h2>Frequently Asked Questions</h2><div class="grid"><div class="card"><h3>How long does it take to build a website?</h3><p>Most projects are completed within 2-4 weeks depending on complexity. Portfolio sites take 1-2 weeks, business websites 2-3 weeks, and e-commerce sites 3-4 weeks. Rush delivery available for urgent projects.</p></div><div class="card"><h3>What's included in your service?</h3><p>Full website design and development, mobile optimization, SEO basics, hosting setup assistance, 30 days of free support, and training on how to update your site. You own all the code and content.</p></div><div class="card"><h3>Do you offer revisions?</h3><p>Yes! I include unlimited revisions during the design phase and up to 3 revision rounds during development. Your satisfaction is my top priority.</p></div><div class="card"><h3>Can you update my existing website?</h3><p>Absolutely! I offer redesign services to modernize outdated websites, improve performance, and add new features. I can work with any existing platform or framework.</p></div><div class="card"><h3>What if I need help after launch?</h3><p>I provide 30 days of free post-launch support for bug fixes and minor adjustments. Extended support and maintenance packages are available for ongoing assistance.</p></div><div class="card"><h3>What are your payment terms?</h3><p>50% deposit to start, 50% upon completion. I accept PayPal, bank transfer, and crypto. Payment plans available for larger projects over $1000.</p></div></div></section>
 
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 CYBER DEV. All Rights Reserved.</p>
-    <div class="footer-links">
-      <a href="#" onclick="openCVModal(event)">📄 View CV</a>
-      <a href="https://engrkhaleedusman-commits.github.io/Portfolio-/" target="_blank">🌐 Live Site</a>
-      <a href="https://github.com/engrkhaleedusman-commits" target="_blank">🔗 GitHub</a>
-      <a href="https://www.instagram.com/cyber_ak" target="_blank">📷 Instagram</a>
-      <a href="https://www.tiktok.com/@coding.dev5" target="_blank">🎵 TikTok</a>
-      <a href="https://t.me/cyberak01" target="_blank">📱 Telegram</a>
-    </div>
-  </footer>
+<section id="about"><h2>Why Choose Me?</h2><div class="about-box"><p><strong>Hi, I'm Cyber Dev</strong> — a passionate full-stack web developer dedicated to creating exceptional digital experiences that drive real business results.</p><p>With expertise in modern technologies and a keen eye for design, I transform your ideas into stunning, high-performance websites that your customers will love.</p><div class="benefits-grid"><div class="benefit-item"><span class="benefit-icon">⚡</span><h4>Lightning Fast</h4><p>Optimized for speed and performance</p></div><div class="benefit-item"><span class="benefit-icon">📱</span><h4>Mobile First</h4><p>Perfect on all devices and screens</p></div><div class="benefit-item"><span class="benefit-icon">🔒</span><h4>Secure & Reliable</h4><p>Built with security best practices</p></div><div class="benefit-item"><span class="benefit-icon">🎯</span><h4>SEO Optimized</h4><p>Rank higher on search engines</p></div><div class="benefit-item"><span class="benefit-icon">💬</span><h4>Clear Communication</h4><p>Regular updates throughout the project</p></div><div class="benefit-item"><span class="benefit-icon">🚀</span><h4>Fast Delivery</h4><p>On-time project completion guaranteed</p></div></div></div></section>
 
-  <script>
-    const burger = document.getElementById('burger');
-    const navLinks = document.getElementById('navLinks');
-    
-    burger.onclick = () => {
-      burger.classList.toggle('active');
-      navLinks.classList.toggle('active');
-      document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
-    };
-    
-    navLinks.querySelectorAll('a').forEach(a => {
-      a.onclick = () => {
-        burger.classList.remove('active');
-        navLinks.classList.remove('active');
-        document.body.style.overflow = 'auto';
-      };
-    });
-    
-    function scrollToContact(){
-      document.getElementById('contact').scrollIntoView({behavior:'smooth'});
-      burger.classList.remove('active');
-      navLinks.classList.remove('active');
-      document.body.style.overflow = 'auto';
-    }
-    
-    function openCVModal(e){
-      e.preventDefault();
-      document.getElementById('cvModal').classList.add('active');
-      document.body.style.overflow='hidden';
-      burger.classList.remove('active');
-      navLinks.classList.remove('active');
-    }
-    
-    function closeCVModal(){
-      document.getElementById('cvModal').classList.remove('active');
-      document.body.style.overflow='auto';
-    }
-    
-    document.getElementById('cvModal').onclick = (e) => {
-      if(e.target.id === 'cvModal') closeCVModal();
-    };
-    
-    function sendEmail(event){
-      event.preventDefault();
-      
-      const sendBtn = document.getElementById('sendBtn');
-      const originalText = sendBtn.textContent;
-      sendBtn.textContent = '⏳ Sending...';
-      sendBtn.disabled = true;
-      
-      // Simulate email sending (replace with actual EmailJS integration)
-      setTimeout(() => {
-        sendBtn.textContent = '✓ Message Sent!';
-        sendBtn.style.background = 'linear-gradient(135deg,#10b981,#059669)';
-        document.getElementById('contactForm').reset();
-        
-        setTimeout(() => {
-          sendBtn.textContent = originalText;
-          sendBtn.style.background = '';
-          sendBtn.disabled = false;
-        }, 3000);
-      }, 1500);
-    }
-  </script>
+<section><h2>🎁 Limited Time Offer</h2><div class="about-box" style="text-align:center;padding:3rem 2rem"><h3 style="font-size:2rem;margin-bottom:1.5rem;color:#fff">Get Started Today & Save 20%</h3><p style="font-size:1.2rem;margin-bottom:2rem;color:#e2e8f0">Book your project this month and receive a special discount plus these bonuses:</p><div class="benefits-grid" style="margin-bottom:2rem"><div class="benefit-item"><span class="benefit-icon">🎯</span><h4>Free SEO Setup</h4><p>$150 value included</p></div><div class="benefit-item"><span class="benefit-icon">⚡</span><h4>Speed Optimization</h4><p>$100 value included</p></div><div class="benefit-item"><span class="benefit-icon">📱</span><h4>Mobile Testing</h4><p>$75 value included</p></div><div class="benefit-item"><span class="benefit-icon">🎓</span><h4>Free Training</h4><p>$125 value included</p></div></div><button class="btn btn-primary" onclick="scrollToContact()" style="max-width:400px;margin:0 auto;font-size:1.1rem">🔥 Claim Your Discount Now</button><p style="margin-top:1.5rem;color:#cbd5e1;font-size:0.9rem">⏰ Offer expires December 31, 2025 • Limited spots available</p></div></section>
+
+<section id="contact"><h2>Get In Touch</h2><div class="contact-box"><h3>Let's Build Something Amazing</h3><div class="contact-info"><p>📧 <strong>devcoding89@gmail.com</strong></p><p>📍 <strong>United States</strong></p><p>🎵 TikTok: <strong>@coding.dev5</strong></p><p>✈ Telegram: <strong>@Cyberak01</strong></p></div><form id="contactForm" onsubmit="sendEmail(event)"><div class="form-group"><label>Your Name</label><input type="text" id="name" placeholder="John Doe" required></div><div class="form-group"><label>Your Email</label><input type="email" id="email" placeholder="you@example.com" required></div><div class="form-group"><label>Message</label><textarea id="message" placeholder="Tell me about your project..." required></textarea></div><div class="form-btns"><button type="submit" class="btn btn-primary" id="sendBtn">✉ Send Message</button><button type="button" class="btn whatsapp-btn" onclick="window.open('https://t.me/Cyberak01','_blank')">✈ Telegram</button></div></form></div></section>
+
+<div class="cv-modal" id="cvModal"><div class="cv-content"><button class="cv-close" onclick="closeCVModal()">×</button><div class="cv-header"><h1>CYBER A.K</h1><p>📍 United States</p><p>📧 devcoding89@gmail.com</p><p>🎵 TikTok: @coding.dev5</p><p>✈ Telegram: @Cyberak01</p><p>🌐 starlit-maamoul-fbd62c.netlify.app</p></div><div class="cv-section"><h2>👤 Professional Summary</h2><p>Creative and detail-oriented Web Developer skilled in building modern, responsive, and user-friendly websites. Strong foundation in HTML, CSS, JavaScript, and UI design.</p></div><div class="cv-section"><h2>🎯 Skills</h2><div class="cv-skills"><span class="cv-skill-tag">HTML5</span><span class="cv-skill-tag">CSS3</span><span class="cv-skill-tag">JavaScript</span><span class="cv-skill-tag">TailwindCSS</span><span class="cv-skill-tag">Bootstrap</span><span class="cv-skill-tag">Git/GitHub</span><span class="cv-skill-tag">VS Code</span><span class="cv-skill-tag">Netlify</span><span class="cv-skill-tag">Mobile-first</span><span class="cv-skill-tag">Responsive</span></div></div><div class="cv-section"><h2>💼 Experience</h2><div class="cv-item"><h3>Freelance Web Developer</h3><div class="date">2023 – Present</div><p>• Built responsive websites for clients</p><p>• Improved UI/UX and optimized performance</p><p>• Created reusable components</p></div></div><div class="cv-section"><h2>🚀 Projects</h2><div class="cv-item"><h3>Personal Portfolio Website</h3><p class="date">starlit-maamoul-fbd62c.netlify.app</p><p>• Landing Page UI</p><p>• E-commerce UI Concept</p><p>• Dashboard Layout</p></div></div><div class="cv-section"><h2>🎓 Education</h2><div class="cv-item"><h3>Al-Hikmah University</h3><p class="date">Current Student</p></div></div><div class="cv-section"><h2>🏆 Certifications & Awards</h2><p>• Best Student in Technology — Secondary School Award</p></div></div></div>
+
+<footer><p>&copy; 2025 CYBER.DEV. All Rights Reserved.</p><div class="footer-links"><a href="https://github.com/engrkhaleedusman-commits" target="_blank">GitHub</a><a href="https://www.tiktok.com/@coding.dev5" target="_blank">TikTok</a><a href="https://t.me/Cyberak01" target="_blank">Telegram</a><a href="#" onclick="openCVModal(event)">View CV</a><a href="https://engrkhaleedusman-commits.github.io/Portfolio-/" target="_blank">Live Site</a></div></footer>
+
+<script>
+const burger=document.getElementById('burger'),navLinks=document.getElementById('navLinks');
+burger.onclick=()=>{burger.classList.toggle('active');navLinks.classList.toggle('active');document.body.style.overflow=navLinks.classList.contains('active')?'hidden':'auto'};
+navLinks.querySelectorAll('a').forEach(a=>{a.onclick=()=>{burger.classList.remove('active');navLinks.classList.remove('active');document.body.style.overflow='auto'}});
+function scrollToContact(){document.getElementById('contact').scrollIntoView({behavior:'smooth'});burger.classList.remove('active');navLinks.classList.remove('active');document.body.style.overflow='auto'}
+function openCVModal(e){e.preventDefault();document.getElementById('cvModal').classList.add('active');document.body.style.overflow='hidden';burger.classList.remove('active');navLinks.classList.remove('active')}
+function closeCVModal(){document.getElementById('cvModal').classList.remove('active');document.body.style.overflow='auto'}
+document.getElementById('cvModal').onclick=(e)=>{if(e.target.id==='cvModal')closeCVModal()};
+function sendEmail(event){event.preventDefault();const name=document.getElementById('name').value,email=document.getElementById('email').value,message=document.getElementById('message').value,sendBtn=document.getElementById('sendBtn'),originalText=sendBtn.textContent;sendBtn.textContent='⏳ Sending...';sendBtn.disabled=true;const mailtoLink=mailto:devcoding89@gmail.com?subject=Message from ${encodeURIComponent(name)}&body=From: ${encodeURIComponent(name)}%0D%0AEmail: ${encodeURIComponent(email)}%0D%0A%0D%0AMessage:%0D%0A${encodeURIComponent(message)};window.location.href=mailtoLink;setTimeout(()=>{sendBtn.textContent='✓ Email Client Opened!';sendBtn.style.background='linear-gradient(135deg,#10b981,#059669)';document.getElementById('contactForm').reset();setTimeout(()=>{sendBtn.textContent=originalText;sendBtn.style.background='';sendBtn.disabled=false},3000)},500)}
+</script>
 </body>
 </html>
